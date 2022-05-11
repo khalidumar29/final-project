@@ -7,8 +7,8 @@ const Testimonilas = ({ testimonial }) => {
       <div className='card-body'>
         <p>{description}</p>
         <div className='flex items-center text-left'>
-          <div class=' relative inline-flex'>
-            <div class='w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5'>
+          <div className=' relative inline-flex'>
+            <div className='w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5'>
               <img src={img} alt='avatar images' />
             </div>
             <div>
