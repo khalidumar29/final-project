@@ -26,9 +26,12 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className='navbar bg-base-100'>
+    <div className='navbar m bg-base-100 '>
       <div className='navbar-start'>
-        <div className='dropdown'>
+        <a href='##' className='btn btn-ghost normal-case text-xl'>
+          Doctors Portal
+        </a>
+        <div className='dropdown sm:ml-36'>
           <label tabindex='0' className='btn btn-ghost lg:hidden'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -52,8 +55,8 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <a className='btn btn-ghost normal-case text-xl'>Doctors Portal</a>
       </div>
+
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal p-0'>{menuItems}</ul>
       </div>
