@@ -9,6 +9,7 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
     console.log(slot);
     setTreatment(null);
   };
+
   return (
     <div>
       <input type='checkbox' id='booking-modal' className='modal-toggle' />
