@@ -27,7 +27,7 @@ const Navbar = () => {
       <li>
         {user ? (
           <button
-            className='btn btn-accent text-white w-[70%]'
+            className='btn btn-outline btn-accent text-white '
             onClick={() => signOut(auth)}
           >
             Sign Out
