@@ -39,12 +39,12 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className='navbar m bg-base-100 '>
+    <div className='navbar  bg-base-100 '>
       <div className='navbar-start'>
         <Link to='/' className='btn btn-ghost normal-case text-xl'>
           Doctors Portal
         </Link>
-        <div className='dropdown sm:ml-36'>
+        <div className='dropdown dropdown-end sm:ml-36'>
           <label tabIndex='0' className='btn btn-ghost lg:hidden'>
             <svg
               xmlns='http://www.w3.org/2000/svg'

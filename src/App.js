@@ -7,6 +7,7 @@ import Login from "./Pages/Login/Login";
 import Navbar from "./Pages/Shared/Navbar/Navbar";
 import RequireAuth from "./Pages/Shared/RequireAuth/RequireAuth";
 import SignUp from "./Pages/SignUp/SignUp";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <div className='max-w-7xl mx-auto px-12'>
@@ -25,6 +26,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
       </Routes>
+      <Toaster />
     </div>
   );
 }

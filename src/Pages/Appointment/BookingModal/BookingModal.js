@@ -1,15 +1,43 @@
 import { format } from "date-fns";
 import React from "react";
-
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import toast from "react-hot-toast";
 const BookingModal = ({ treatment, date, setTreatment }) => {
-  const { name, slots } = treatment;
+  const { _id, name, slots } = treatment;
+  const foramtteDate = format(date, "PP");
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
     console.log(slot);
-    setTreatment(null);
+    const booking = {
+      treatmentId: _id,
+      treatmentName: name,
+      date: foramtteDate,
+      slot,
+      patientName: user.displayName,
+      patient: user.email,
+      patientPhoneNumber: e.target.phone.value,
+    };
+    fetch("https://doctors-portal12.herokuapp.com/booking", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          toast.success(`Appointment is set ${foramtteDate} at ${slot}`);
+          setTreatment(null);
+        } else {
+          toast.success(
+            `You Already Have an Appointment On ${data.booking?.date} at ${data.booking?.slot}`
+          );
+        }
+      });
   };
-
+  const [user] = useAuthState(auth);
   return (
     <div>
       <input type='checkbox' id='booking-modal' className='modal-toggle' />
@@ -35,12 +63,10 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
               className='input input-bordered w-full '
             />
             <select name='slot' className='select select-bordered w-full '>
-              <option disabled selected>
-                Chose Your Time.
-              </option>
-
               {slots.map((slot) => (
-                <option value={slot}>{slot}</option>
+                <option key={slots.indexOf(slot) + 1} value={slot}>
+                  {slot}
+                </option>
               ))}
             </select>
             <input
@@ -48,6 +74,8 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
               name='name'
               placeholder='Full Name'
               className='input input-bordered w-full '
+              value={user.displayName}
+              readOnly
             />
             <input
               type='text'
@@ -60,6 +88,8 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
               name='email'
               placeholder='Email'
               className='input input-bordered w-full '
+              value={user.email}
+              readOnly
             />
             <input type='submit' className='btn btn-secondary w-full' />
           </form>
