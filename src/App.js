@@ -8,6 +8,9 @@ import Navbar from "./Pages/Shared/Navbar/Navbar";
 import RequireAuth from "./Pages/Shared/RequireAuth/RequireAuth";
 import SignUp from "./Pages/SignUp/SignUp";
 import { Toaster } from "react-hot-toast";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import MyAppointment from "./Pages/Dashboard/MyAppointment/MyAppointment";
+import Review from "./Pages/Dashboard/Review/Review";
 function App() {
   return (
     <div className='max-w-7xl mx-auto px-12'>
@@ -23,6 +26,17 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+        <Route
+          path='/dashboard'
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<MyAppointment />}></Route>
+          <Route path='review' element={<Review />}></Route>
+        </Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>
       </Routes>

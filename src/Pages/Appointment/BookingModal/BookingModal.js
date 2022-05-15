@@ -3,7 +3,7 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import toast from "react-hot-toast";
-const BookingModal = ({ treatment, date, setTreatment }) => {
+const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
   const { _id, name, slots } = treatment;
   const foramtteDate = format(date, "PP");
   const handleBooking = (e) => {
@@ -19,7 +19,7 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
       patientPhoneNumber: e.target.phone.value,
     };
     console.log(booking);
-    fetch("http://localhost:3100/booking", {
+    fetch("https://doctors-portal12.herokuapp.com/booking", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(booking),
@@ -29,12 +29,13 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
         console.log(data);
         if (data.success) {
           toast.success(`Appointment is set ${foramtteDate} at ${slot}`);
-          setTreatment(null);
         } else {
-          toast.success(
+          toast.error(
             `You Already Have an Appointment On ${data.booking?.date} at ${data.booking?.slot}`
           );
         }
+        refetch();
+        setTreatment(null);
       });
   };
   const [user] = useAuthState(auth);

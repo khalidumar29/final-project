@@ -1,17 +1,25 @@
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import BookingModal from "../BookingModal/BookingModal";
 import Service from "./Service";
-
+import Loading from "../../Shared/Loading/Loading";
 const AvailableAppointments = ({ date }) => {
-  const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
   const foramtteDate = format(date, "PP");
-  useEffect(() => {
-    fetch(`http://localhost:3100/avaiableServices?date=${foramtteDate}`)
-      .then((res) => res.json())
-      .then((data) => setServices(data));
-  }, []);
+
+  const {
+    data: services,
+    isLoading,
+    refetch,
+  } = useQuery(["available", foramtteDate], () =>
+    fetch(
+      `https://doctors-portal12.herokuapp.com/avaiableServices?date=${foramtteDate}`
+    ).then((res) => res.json())
+  );
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>
@@ -23,7 +31,7 @@ const AvailableAppointments = ({ date }) => {
         )}
       </h4>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {services.map((service) => (
+        {services?.map((service) => (
           <Service
             key={service._id}
             service={service}
@@ -36,6 +44,7 @@ const AvailableAppointments = ({ date }) => {
           date={date}
           treatment={treatment}
           setTreatment={setTreatment}
+          refetch={refetch}
         ></BookingModal>
       )}
     </div>
