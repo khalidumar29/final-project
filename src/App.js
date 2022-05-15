@@ -10,7 +10,8 @@ import SignUp from "./Pages/SignUp/SignUp";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import MyAppointment from "./Pages/Dashboard/MyAppointment/MyAppointment";
-import Review from "./Pages/Dashboard/Review/Review";
+import MyReview from "./Pages/Dashboard/MyReview/MyReview";
+import History from "./Pages/Dashboard/History/History";
 function App() {
   return (
     <div className='max-w-7xl mx-auto px-12'>
@@ -35,7 +36,8 @@ function App() {
           }
         >
           <Route index element={<MyAppointment />}></Route>
-          <Route path='review' element={<Review />}></Route>
+          <Route path='myreview' element={<MyReview />}></Route>
+          <Route path='history' element={<History />}></Route>
         </Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>

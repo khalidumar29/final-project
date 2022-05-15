@@ -10,12 +10,6 @@ const Dashboard = () => {
         className='drawer-toggle'
       />
       <div className='drawer-content bg-dasboardBg'>
-        <div className='flex items-center py-[15px] justify-between'>
-          <h2 className='lg:text-[24px]  font-bold capitalize text-accent'>
-            My Appointment
-          </h2>
-          <button className='btn btn-outline btn-accent'>MAY 10, 2022</button>
-        </div>
         <Outlet />
       </div>
       <div className='drawer-side'>
@@ -23,12 +17,19 @@ const Dashboard = () => {
         <ul className='menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content'>
           {/* <!-- Sidebar content here --> */}
           <li>
-            <Link className='text-accent ' to={"/dashboard"}>
+            <Link className='text-accent' to={"/dashboard"}>
               My Appointments
             </Link>
           </li>
           <li>
-            <Link to={"/dashboard/review"}>Sidebar Item 2</Link>
+            <Link className='text-accent' to={"/dashboard/myreview"}>
+              My Review
+            </Link>
+          </li>
+          <li>
+            <Link className='text-accent' to={"/dashboard/history"}>
+              My History
+            </Link>
           </li>
         </ul>
       </div>

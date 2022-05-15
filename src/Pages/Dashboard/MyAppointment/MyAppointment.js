@@ -15,6 +15,12 @@ const MyAppointment = () => {
   }, [user]);
   return (
     <div>
+      <div className='flex items-center py-[15px] justify-between'>
+        <h2 className='lg:text-[24px]  font-bold capitalize text-accent'>
+          My Appointment
+        </h2>
+        <button className='btn btn-outline btn-accent'>MAY 10, 2022</button>
+      </div>
       <div class='overflow-x-auto'>
         <table class='table w-full'>
           <thead>
