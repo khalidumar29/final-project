@@ -9,17 +9,17 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
-    console.log(slot);
     const booking = {
       treatmentId: _id,
-      treatmentName: name,
+      treatment: name,
       date: foramtteDate,
       slot,
       patientName: user.displayName,
       patient: user.email,
       patientPhoneNumber: e.target.phone.value,
     };
-    fetch("https://doctors-portal12.herokuapp.com/booking", {
+    console.log(booking);
+    fetch("http://localhost:3100/booking", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(booking),

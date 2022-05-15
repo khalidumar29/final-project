@@ -6,9 +6,9 @@ import Service from "./Service";
 const AvailableAppointments = ({ date }) => {
   const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
-
+  const foramtteDate = format(date, "PP");
   useEffect(() => {
-    fetch("https://doctors-portal12.herokuapp.com/service")
+    fetch(`http://localhost:3100/avaiableServices?date=${foramtteDate}`)
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
