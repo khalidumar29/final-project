@@ -13,6 +13,7 @@ import MyAppointment from "./Pages/Dashboard/MyAppointment/MyAppointment";
 import MyReview from "./Pages/Dashboard/MyReview/MyReview";
 import History from "./Pages/Dashboard/History/History";
 import AllUsers from "./Pages/Dashboard/AllUsers/AllUsers";
+import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
 function App() {
   return (
     <div className='max-w-7xl mx-auto px-12'>
@@ -39,7 +40,14 @@ function App() {
           <Route index element={<MyAppointment />}></Route>
           <Route path='myreview' element={<MyReview />}></Route>
           <Route path='history' element={<History />}></Route>
-          <Route path='alluser' element={<AllUsers />}></Route>
+          <Route
+            path='alluser'
+            element={
+              <RequireAdmin>
+                <AllUsers />
+              </RequireAdmin>
+            }
+          ></Route>
         </Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>

@@ -9,12 +9,15 @@ const MyAppointment = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:3100/booking?patient=${user.email}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://doctors-portal12.herokuapp.com/booking?patient=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
           if (res.status === 401 || res.status === 403) {
             signOut(auth);
@@ -27,7 +30,7 @@ const MyAppointment = () => {
           setAppointments(data);
         });
     }
-  }, [user]);
+  }, [user, navigate]);
   return (
     <div>
       <div className='flex items-center py-[15px] justify-between'>
@@ -36,8 +39,8 @@ const MyAppointment = () => {
         </h2>
         <button className='btn btn-outline btn-accent'>MAY 10, 2022</button>
       </div>
-      <div class='overflow-x-auto'>
-        <table class='table w-full'>
+      <div className='overflow-x-auto'>
+        <table className='table w-full'>
           <thead>
             <tr>
               <th></th>

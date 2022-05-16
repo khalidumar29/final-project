@@ -1,13 +1,45 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import Loading from "../../Shared/Loading/Loading";
 const AllUsers = () => {
-  const { data: users, isLoading } = useQuery("users", () =>
-    fetch("http://localhost:3100/user").then((res) => res.json())
+  const {
+    data: users,
+    isLoading,
+    refetch,
+  } = useQuery("users", () =>
+    fetch("https://doctors-portal12.herokuapp.com/user", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => res.json())
   );
+
   if (isLoading) {
     return <Loading></Loading>;
   }
+  const makeAdmin = (email) => {
+    fetch(`https://doctors-portal12.herokuapp.com/user/admin/${email}`, {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 403) {
+          toast.error("Failed To Make an admin");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          refetch();
+          toast.success(`Successfully made an admin`);
+        }
+      });
+  };
+
   return (
     <div>
       <div className='flex items-center py-[15px] justify-between'>
@@ -15,8 +47,8 @@ const AllUsers = () => {
           All User
         </h2>
       </div>
-      <div class='overflow-x-auto w-full'>
-        <table class='table w-full'>
+      <div className='overflow-x-auto w-full'>
+        <table className='table w-full'>
           <thead>
             <tr>
               <th></th>
@@ -28,26 +60,34 @@ const AllUsers = () => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr key={user._id}>
+              <tr refetch={refetch} key={user._id}>
                 <td>{index + 1}</td>
                 <td>
-                  <div class='flex items-center space-x-3'>
-                    <div class='avatar'>
-                      <div class='mask mask-squircle w-12 h-12'>
+                  <div className='flex items-center space-x-3'>
+                    <div className='avatar'>
+                      <div className='mask mask-squircle w-12 h-12'>
                         <img
                           src='https://i.ibb.co/KXsDP3Q/tailwind-css-component-profile-2-56w.png'
                           alt='Avatar Tailwind CSS Component'
                         />
                       </div>
                     </div>
-                    <div>
-                      <div class='font-bold'>Hart Hagerty</div>
-                      <div class='text-sm opacity-50'>United States</div>
-                    </div>
+                    <div>{user.email} </div>
                   </div>
                 </td>
-                <td>{user.email}</td>
-                <td>Purple</td>
+                <td>
+                  {user.role !== "admin" && (
+                    <button
+                      onClick={() => makeAdmin(user.email)}
+                      className='btn btn-xs uppercase'
+                    >
+                      Make Admin
+                    </button>
+                  )}
+                </td>
+                <td>
+                  <button className='btn btn-xs uppercase'>remove user</button>
+                </td>
               </tr>
             ))}
           </tbody>
