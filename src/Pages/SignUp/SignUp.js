@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading/Loading";
 import { FcGoogle } from "react-icons/fc";
-import { async } from "@firebase/util";
+import useToken from "../../hooks/useToken";
 const SignUp = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
@@ -20,6 +20,7 @@ const SignUp = () => {
     CreateError,
   ] = useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
+  const [token] = useToken(googleUser || CreateUser);
   const navigate = useNavigate();
   const {
     register,
@@ -30,16 +31,14 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
-    console.log("update done");
-    navigate("/appointment");
   };
 
   if (googleLoading || createLoading || updating) {
     return <Loading></Loading>;
   }
 
-  if (googleUser || CreateUser || updateProfile) {
-    console.log(googleUser || CreateUser || updateProfile);
+  if (token) {
+    navigate("/appointment");
   }
   let signInError;
   if (googleError || CreateError || UpdateError) {

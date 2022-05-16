@@ -33,7 +33,10 @@ const Navbar = () => {
         {user ? (
           <button
             className='btn btn-outline btn-accent text-white '
-            onClick={() => signOut(auth)}
+            onClick={() => {
+              signOut(auth);
+              localStorage.removeItem("accessToken");
+            }}
           >
             Sign Out
           </button>
@@ -48,7 +51,7 @@ const Navbar = () => {
       <div className='navbar-start'>
         <div className='navbar-end'>
           <label
-            for='drawer-side-bar-left'
+            htmlFor='drawer-side-bar-left'
             className='btn btn-ghost drawer-button lg:hidden'
           >
             <svg
