@@ -14,6 +14,7 @@ import MyReview from "./Pages/Dashboard/MyReview/MyReview";
 import History from "./Pages/Dashboard/History/History";
 import AllUsers from "./Pages/Dashboard/AllUsers/AllUsers";
 import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
+import AddDoctor from "./Pages/Dashboard/AddDoctor/AddDoctor";
 function App() {
   return (
     <div className='max-w-7xl mx-auto px-12'>
@@ -45,6 +46,14 @@ function App() {
             element={
               <RequireAdmin>
                 <AllUsers />
+              </RequireAdmin>
+            }
+          ></Route>
+          <Route
+            path='addDoctor'
+            element={
+              <RequireAdmin>
+                <AddDoctor />
               </RequireAdmin>
             }
           ></Route>
