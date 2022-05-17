@@ -29,14 +29,14 @@ const AddDoctor = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.success) {
-          const image = result.data.url;
+          const img = result.data.url;
           const doctor = {
             name: data.name,
             email: data.email,
-            specialty: data.spcialty,
-            img: image,
+            specialty: data.specialty,
+            img: img,
           };
-          // send to database
+          // send to your database
           fetch("http://localhost:3100/doctor", {
             method: "POST",
             headers: {
@@ -48,10 +48,10 @@ const AddDoctor = () => {
             .then((res) => res.json())
             .then((inserted) => {
               if (inserted.insertedId) {
-                toast.success("Doctor Added Successfuly");
+                toast.success("Doctor added successfully");
                 reset();
               } else {
-                toast.error("Faild To Add the Doctor");
+                toast.error("Failed to add the doctor");
               }
             });
         }

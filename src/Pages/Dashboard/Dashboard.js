@@ -51,6 +51,11 @@ const Dashboard = () => {
                   Add Doctor
                 </Link>
               </li>
+              <li>
+                <Link className='text-accent' to={"/dashboard/manageDoctor"}>
+                  Manage Doctor
+                </Link>
+              </li>
             </>
           )}
         </ul>
