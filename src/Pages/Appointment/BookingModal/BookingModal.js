@@ -18,7 +18,6 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
       patient: user.email,
       patientPhoneNumber: e.target.phone.value,
     };
-    console.log(booking);
     fetch("https://doctors-portal12.herokuapp.com/booking", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -45,7 +44,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
       <div className='modal modal-bottom sm:modal-middle'>
         <div className='modal-box'>
           <label
-            htmlFor='booking-modal'
+            htmlhtmlFor='booking-modal'
             className='btn btn-sm btn-circle absolute right-2 top-2'
           >
             ✕

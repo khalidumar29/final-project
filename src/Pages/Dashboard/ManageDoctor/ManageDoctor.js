@@ -1,33 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
 import Loading from "../../Shared/Loading/Loading";
 
 const ManageDoctor = () => {
+  const [deleteDoctor, setDeleteDoctor] = useState(false);
   const {
     data: doctors,
     isLoading,
     refetch,
   } = useQuery("doctors", () =>
-    fetch("http://localhost:3100/doctor", {
+    fetch("https://doctors-portal12.herokuapp.com/doctor", {
       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     }).then((res) => res.json())
   );
 
   const handleDelete = (email) => {
-    fetch(`http://localhost:3100/doctor/${email}`, {
-      method: "DELETE",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount) {
-          toast.success(`${email} deleted`, { id: 1 });
-          refetch();
-        }
-      });
+    if (deleteDoctor) {
+      fetch(`https://doctors-portal12.herokuapp.com/doctor/${email}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount) {
+            toast.success(`${email} deleted`, { id: 1 });
+            refetch();
+          }
+        });
+    }
   };
 
   if (isLoading) {
@@ -36,9 +39,9 @@ const ManageDoctor = () => {
   return (
     <div>
       <h1 className='text-2xl capitalize'>manage doctor: {doctors.length}</h1>
-      <div class='overflow-x-auto'>
-        <div class='overflow-x-auto w-full'>
-          <table class='table w-full'>
+      <div className='overflow-x-auto'>
+        <div className='overflow-x-auto w-full'>
+          <table className='table w-full'>
             <thead>
               <tr>
                 <th></th>
@@ -52,33 +55,52 @@ const ManageDoctor = () => {
                 <tr key={doctor._id}>
                   <th>{index + 1}</th>
                   <td>
-                    <div class='flex items-center space-x-3'>
-                      <div class='avatar'>
-                        <div class='w-16 rounded-full ring ring-[secondary]'>
+                    <div className='flex items-center space-x-3'>
+                      <div className='avatar'>
+                        <div className='w-16 rounded-full ring ring-[secondary]'>
                           <img src={doctor.img} alt='' />
                         </div>
                       </div>
                       <div>
-                        <div class='font-bold'>{doctor.name}</div>
-                        <div class='text-sm opacity-50'>{doctor.email}</div>
+                        <div className='font-bold'>{doctor.name}</div>
+                        <div className='text-sm opacity-50'>{doctor.email}</div>
                       </div>
                     </div>
                   </td>
                   <td>{doctor.specialty}</td>
                   <th>
-                    <button
+                    <label
                       onClick={() => {
                         handleDelete(doctor.email);
                       }}
-                      class='btn btn-error btn-tiny btn-xs'
+                      htmlFor='my-modal-6'
+                      className='btn btn-error btn-tiny btn-xs'
                     >
                       delete
-                    </button>
+                    </label>
                   </th>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+      <input type='checkbox' id='my-modal-6' className='modal-toggle' />
+      <div className='modal modal-bottom sm:modal-middle'>
+        <div className='modal-box'>
+          <h3 className='font-bold text-lg'>Are You Sure...?</h3>
+          <p className='py-4'>Delete this Doctor.</p>
+          <div className='modal-action'>
+            <label
+              onClick={() => {
+                setDeleteDoctor(true);
+              }}
+              htmlFor='my-modal-6'
+              className='btn btn-error text-accent'
+            >
+              Confirm
+            </label>
+          </div>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ const Service = ({ service, setTreatment }) => {
         <p>{slots.length > 0 ? slots.length + " spaces available" : ""}</p>
 
         <label
-          htmlFor='booking-modal'
+          htmlhtmlFor='booking-modal'
           disabled={slots.length === 0}
           onClick={() => setTreatment(service)}
           className='btn btn-primary  text-white font-bold bg-gradient-to-r from-secondary to-primary  uppercase '
