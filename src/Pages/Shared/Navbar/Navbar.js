@@ -51,7 +51,7 @@ const Navbar = () => {
       <div className='navbar-start'>
         <div className='navbar-end'>
           <label
-            htmlhtmlFor='drawer-side-bar-left'
+            htmlFor='drawer-side-bar-left'
             className='btn btn-ghost drawer-button lg:hidden'
           >
             <svg

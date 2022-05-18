@@ -16,6 +16,7 @@ import AllUsers from "./Pages/Dashboard/AllUsers/AllUsers";
 import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
 import AddDoctor from "./Pages/Dashboard/AddDoctor/AddDoctor";
 import ManageDoctor from "./Pages/Dashboard/ManageDoctor/ManageDoctor";
+import Payment from "./Pages/Shared/Payment/Payment";
 function App() {
   return (
     <div className='max-w-7xl mx-auto px-12'>
@@ -66,6 +67,7 @@ function App() {
               </RequireAdmin>
             }
           ></Route>
+          <Route path='payment/:id' element={<Payment />}></Route>
         </Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signUp' element={<SignUp />}></Route>

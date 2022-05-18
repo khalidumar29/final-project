@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import toast from "react-hot-toast";
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
-  const { _id, name, slots } = treatment;
+  const { _id, name, slots, price } = treatment;
   const foramtteDate = format(date, "PP");
   const handleBooking = (e) => {
     e.preventDefault();
@@ -14,6 +14,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
       treatment: name,
       date: foramtteDate,
       slot,
+      price,
       patientName: user.displayName,
       patient: user.email,
       patientPhoneNumber: e.target.phone.value,
@@ -44,7 +45,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
       <div className='modal modal-bottom sm:modal-middle'>
         <div className='modal-box'>
           <label
-            htmlhtmlFor='booking-modal'
+            htmlFor='booking-modal'
             className='btn btn-sm btn-circle absolute right-2 top-2'
           >
             ✕
