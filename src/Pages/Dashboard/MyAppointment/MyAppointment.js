@@ -84,6 +84,7 @@ const MyAppointment = () => {
                 </td>
               </tr>
             ))}
+            {/* push on azure */}
           </tbody>
         </table>
       </div>
