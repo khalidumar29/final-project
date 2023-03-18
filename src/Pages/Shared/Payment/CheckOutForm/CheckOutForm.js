@@ -11,7 +11,7 @@ const CheckOutForm = ({ appointment }) => {
   const [clientSecret, setClientSecret] = useState("");
   const { _id, patient, patientName, price } = appointment;
   useEffect(() => {
-    fetch("https://doctors-portal12.herokuapp.com/create-payment-intent", {
+    fetch("https://doc-portal-server.onrender.com/create-payment-intent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -71,7 +71,7 @@ const CheckOutForm = ({ appointment }) => {
         appointment: _id,
         trxid: paymentIntent.id,
       };
-      fetch(`https://doctors-portal12.herokuapp.com/booking/${_id}`, {
+      fetch(`https://doc-portal-server.onrender.com/booking/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

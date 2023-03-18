@@ -10,7 +10,7 @@ const MyAppointment = () => {
   useEffect(() => {
     if (user) {
       fetch(
-        `https://doctors-portal12.herokuapp.com/booking?patient=${user.email}`,
+        `https://doc-portal-server.onrender.com/booking?patient=${user.email}`,
         {
           method: "GET",
           headers: {

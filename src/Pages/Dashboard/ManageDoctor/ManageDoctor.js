@@ -10,14 +10,14 @@ const ManageDoctor = () => {
     isLoading,
     refetch,
   } = useQuery("doctors", () =>
-    fetch("https://doctors-portal12.herokuapp.com/doctor", {
+    fetch("https://doc-portal-server.onrender.com/doctor", {
       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     }).then((res) => res.json())
   );
 
   const handleDelete = (email) => {
     if (deleteDoctor) {
-      fetch(`https://doctors-portal12.herokuapp.com/doctor/${email}`, {
+      fetch(`https://doc-portal-server.onrender.com/doctor/${email}`, {
         method: "DELETE",
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -8,7 +8,7 @@ const AllUsers = () => {
     isLoading,
     refetch,
   } = useQuery("users", () =>
-    fetch("https://doctors-portal12.herokuapp.com/user", {
+    fetch("https://doc-portal-server.onrender.com/user", {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -20,7 +20,7 @@ const AllUsers = () => {
     return <Loading></Loading>;
   }
   const makeAdmin = (email) => {
-    fetch(`https://doctors-portal12.herokuapp.com/user/admin/${email}`, {
+    fetch(`https://doc-portal-server.onrender.com/user/admin/${email}`, {
       method: "PUT",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

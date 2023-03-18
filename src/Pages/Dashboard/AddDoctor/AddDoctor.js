@@ -12,7 +12,7 @@ const AddDoctor = () => {
     reset,
   } = useForm();
   const { data: services, isLoading } = useQuery("services", () =>
-    fetch(`https://doctors-portal12.herokuapp.com/service`).then((res) =>
+    fetch(`https://doc-portal-server.onrender.com/service`).then((res) =>
       res.json()
     )
   );
@@ -39,7 +39,7 @@ const AddDoctor = () => {
             img: img,
           };
           // send to your database
-          fetch("https://doctors-portal12.herokuapp.com/doctor", {
+          fetch("https://doc-portal-server.onrender.com/doctor", {
             method: "POST",
             headers: {
               "content-type": "application/json",

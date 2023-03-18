@@ -6,7 +6,7 @@ const UseAdmin = (user) => {
   useEffect(() => {
     const email = user?.email;
     if (email) {
-      fetch(`https://doctors-portal12.herokuapp.com/admin/${email}`, {
+      fetch(`https://doc-portal-server.onrender.com/admin/${email}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
